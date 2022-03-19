@@ -10,7 +10,7 @@ class ChuckNorris:
     def __init__(self):
         self.base_url = 'https://api.chucknorris.io/jokes'
 
-    def random(self, category):
+    def random(self, category = None):
         """
         Gets a random chucknorris joke
         Parameters: category = None
@@ -39,7 +39,7 @@ class ChuckNorris:
         resp = requests.get(f"{self.base_url}/search?query={query}")
         _json = resp.json()
         results = []
-        for i in _json['results']:
+        for i in _json['result']:
             results.append(Response(
                 created_at=i['created_at'],
                 categories=i['categories'],
@@ -54,7 +54,7 @@ class ChuckNorris:
             results = results
         )
 
-    async def search(self, query):
+    async def async_search(self, query):
 
         """ 
         async version of search()
@@ -64,16 +64,16 @@ class ChuckNorris:
             async with cs.get(f"{self.base_url}/search?query={query}") as resp:
                 _json = await resp.json()
                 results = []
-                for i in _json['results']:
-                results.append(Response(
-                    created_at=i['created_at'],
-                    categories=i['categories'],
-                    icon_url = i['icon_url'],
-                    id = i['id'],
-                    rawJson = i,
-                    url = i['url'],
-                    value = i['value']
-                ))
+                for i in _json['result']:
+                    results.append(Response(
+                        created_at=i['created_at'],
+                        categories=i['categories'],
+                        icon_url = i['icon_url'],
+                        id = i['id'],
+                        rawJson = i,
+                        url = i['url'],
+                        value = i['value']
+                    ))
                 return Response(
                     found = _json['total'],
                     results = results
@@ -85,7 +85,7 @@ class ChuckNorris:
         resp = requests.get(f"{self.base_url}/categories")
         return resp.json()
 
-    async def random(self, category = None):
+    async def async_random(self, category = None):
         """ 
         The async version of random()
         """
@@ -102,3 +102,9 @@ class ChuckNorris:
                     url = _json['url'],
                     value = _json['value']
                 )
+
+if __name__ == '__main__':
+    chuck = ChuckNorris()
+    print(chuck.random().value)
+    print(chuck.categories)
+    print(chuck.search("chuck norris").found)
