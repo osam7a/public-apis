@@ -7,7 +7,7 @@ class Response:
             setattr(self, k, v)
 
 def addURL(long, short = None):
-    resp = requests.get(f"api.1pt.co?long={long}{f'&short={short}' if short else ''}")
+    resp = requests.get(f"api.1pt.co/addURL?long={long}{f'&short={short}' if short else ''}")
     _json = resp.json()
     try:
         return Response(
@@ -17,3 +17,6 @@ def addURL(long, short = None):
             long = _json['long']
         )
     except: return _json
+
+if __name__ == "__main__":
+    addURL("discord.com", "osam7a")
