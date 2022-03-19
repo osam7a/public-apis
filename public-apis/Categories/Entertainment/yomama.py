@@ -11,4 +11,7 @@ async def async_joke():
         async with cs.get('https://yomomma-api.herokuapp.com/jokes') as resp:
             _json = await resp.json()
             return _json['joke'] 
-            
+
+if __name__ == '__main__':
+    print(joke())
+    
