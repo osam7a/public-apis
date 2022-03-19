@@ -52,7 +52,7 @@ class Excusor:
     
     def random_category(self, category, limit = None):
         if category.lower() not in self.categories:
-            return "Invalid categories, check the attribute categories to check available categories"
+            raise AttributeError("Category not found... Check the categories attribute of this class")
         resp = requests.get(f"{self.base_url}/{category}{f'/{limit}' if limit is not None else ''}")
         _json = resp.json()
         if len(_json) > 1:
@@ -73,7 +73,7 @@ class Excusor:
 
     async def async_random_category(self, category, limit = None):
         if category.lower() not in self.categories:
-            return "Invalid categories, check the attribute categories to check available categories"
+            raise AttributeError("Category not found... Check the categories attribute of this class")
         async with aiohttp.ClientSession() as cs:
             async with cs.get(f"{self.base_url}/{category}{f'/{limit}' if limit is not None else ''}") as resp:
                 _json = await resp.json()
