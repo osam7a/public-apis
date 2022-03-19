@@ -6,6 +6,7 @@ class Response:
         for k, v in kwargs.items():
             setattr(self, k, v)
 
+
 class ChuckNorris:
     def __init__(self):
         self.base_url = 'https://api.chucknorris.io/jokes'
