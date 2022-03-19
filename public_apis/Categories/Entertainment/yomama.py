@@ -1,6 +1,8 @@
 import requests
 import aiohttp
 
+base_url = 'https://yomomma-api.herokuapp.com/jokes'
+
 def joke():
     """ 
     returns a random yomama joke 
